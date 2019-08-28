@@ -3,6 +3,9 @@ const express = require("express");
 
 const app = express(); // create the express application
 
+// set an express property for which templating engine to use.
+app.set('view engine', 'hbs');
+
 // customise the server
 // static is a function and then uses what you give it and displays static info. 
 app.use(express.static(path.join(__dirname, '../public'))); 
