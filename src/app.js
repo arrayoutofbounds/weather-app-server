@@ -49,13 +49,17 @@ app.get('/weather', (req, res) => {
 
 app.get('/help/*', (req, res) => {
     res.render('404', {
-        error: 'Cannot find help page'
+        error: 'Cannot find help page',
+        name: 'ad',
+        title: '404'
     });
 });
 
 app.get('*', (req, res) => {
     res.render('404', {
-        error: "Page not found"
+        error: "Page not found",
+        name: 'ad',
+        title: '404'
     })
 });
 
