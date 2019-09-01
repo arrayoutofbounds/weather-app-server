@@ -6,6 +6,9 @@ const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 const app = express(); // create the express application
 
+const geoCode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
+
 // set an express property for which templating engine to use.
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
@@ -41,13 +44,42 @@ app.get('/help', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-    res.send([{
-        name: 'anmol',
-        age: 'unknown'
-    }])
+    if(!req.query.address){
+        return res.send({
+            error: "Provide an address"
+        });
+    }
+
+    geoCode(req.query.address, (error, { longtitude, lattitude, location }) => {
+        if(error){
+            return res.send({
+                error
+            });
+        }
+        forecast(lattitude, longtitude, (error, { temp, precipProbability, summary }) => {
+            if(error){
+                return res.send({
+                    error
+                });
+            }
+
+            res.send({
+                temp,
+                precipProbability,
+                summary,
+                location,
+                address: req.query.address
+            })
+        })
+    });
 })
 
 app.get('/products', (req, res) => {
+    if(!req.query.search){
+        return res.send({
+            error: "You must provide a search term"
+        })
+    }
     res.send({
         products: []
     })
