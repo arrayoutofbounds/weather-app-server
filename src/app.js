@@ -21,7 +21,7 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(path.join(__dirname, '../public'))); 
 
 // CAN access html pages i.e /about.html
-// content shown for home page will be index.html.  This is done automatically. route url matches to index.html in the public folder.
+// content shown for home page will be index.html.  This is done automatically. route url matches to index.html in the public folder. home page route matches index.html automatically
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather',
