@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const hbs = require('hbs');
 
+const port = process.env.PORT || 3000;
+
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 const app = express(); // create the express application
@@ -101,6 +103,6 @@ app.get('*', (req, res) => {
     })
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Server start");
 });
