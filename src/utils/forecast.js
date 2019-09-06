@@ -18,10 +18,16 @@ const forecast = (latitude, longtitude,  callback ) => {
           const temp = body.currently.temperature;
           const precipProbability = body.currently.precipProbability;
           const summary = body.daily.data[0].summary;
+          const tempHigh = body.daily.data[0].temperatureMax;
+          const tempLow = body.daily.data[0].temperatureMin;
+          const finalResult = `The temperate is ${temp}. Chance of rain is ${precipProbability}. Max temp is ${tempHigh}. Min temp is ${tempLow}. Overall it will be ${summary}`
           callback(undefined, {
             temp,
             precipProbability,
-            summary
+            summary,
+            tempHigh,
+            tempLow,
+            finalResult
           });
       }
     }
